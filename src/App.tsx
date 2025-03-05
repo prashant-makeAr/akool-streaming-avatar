@@ -395,7 +395,7 @@ function App() {
   return (
     <>
       <div className="left-side">
-        <h3>AKool Streaming Avatar Demo</h3>
+        <h3>Talk to thala demo</h3>
         <div style={{display: "none"}}>
           <label>
             Host:
