@@ -386,7 +386,7 @@ function App() {
 
   const [remoteStats, setRemoteStats] = useState<NetworkStats | null>(null);
 
-  const [useManualAvatarId, setUseManualAvatarId] = useState(false);
+  // const [useManualAvatarId, setUseManualAvatarId] = useState(false);
 
   const isImageUrl = (url: string) => {
     return /\.(jpg|jpeg|png|gif|webp)$/i.test(url);
