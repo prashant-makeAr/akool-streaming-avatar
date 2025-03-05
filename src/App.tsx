@@ -130,23 +130,29 @@ function App() {
   const [voiceId, setVoiceId] = useState('Xb7hH8MSUJpSbSDYk0k2');
 
   const [openapiHost, setOpenapiHost] = useState('https://openapi.akool.com');
-  const [avatarId, setAvatarId] = useState('dvp_Tristan_cloth2_1080P');
+  const [avatarId, setAvatarId] = useState('dvp_Tristan_cloth2_01_1080P');
   const [avatarVideoUrl, setAvatarVideoUrl] = useState(
     'https://static.website-files.org/assets/avatar/avatar/streaming_avatar/tristan_10s_silence.mp4',
   );
-  const [openapiToken, setOpenapiToken] = useState('');
+  const [openapiToken, setOpenapiToken] = useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGU4MTg2ZGUwZDU1MmNjODFjNDZlZiIsInVpZCI6NTMwMzcyOCwiZW1haWwiOiJjb250YWN0QG1ha2Vhci5haSIsImNyZWRlbnRpYWxJZCI6IjY3YzE2NjRlNTllNmE4ZTM5NmVkYmMwNSIsImZpcnN0TmFtZSI6IlMiLCJsYXN0TmFtZSI6IkoiLCJ0ZWFtX2lkIjoiNjc4ZTgxOTYyYzg0YTdlMTNmN2M2NTM1Iiwicm9sZV9hY3Rpb25zIjpbMSwyLDMsNCw1LDYsNyw4LDldLCJpc19kZWZhdWx0X3RlYW0iOnRydWUsImZyb20iOiJ0b08iLCJ0eXBlIjoidXNlciIsImlhdCI6MTc0MDc1OTc2NCwiZXhwIjoyMDUxNzk5NzY0fQ.C3Nd7BjG2zD2L-yibff2WvY2N4PRLOKa5B9rfQjeDgc');
 
   const [session, setSession] = useState<Session | null>(null);
   const [api, setApi] = useState<ApiService | null>();
 
+  // useEffect(() => {
+  //   if (openapiHost && openapiToken) {
+  //     const apiService = new ApiService(openapiHost, openapiToken);
+  //     setApi(apiService);
+  //   } else {
+  //     setApi(null);
+  //   }
+  // }, [openapiHost, openapiToken]);
+  
+
   useEffect(() => {
-    if (openapiHost && openapiToken) {
-      const apiService = new ApiService(openapiHost, openapiToken);
-      setApi(apiService);
-    } else {
-      setApi(null);
-    }
-  }, [openapiHost, openapiToken]);
+    const apiService = new ApiService(openapiHost, openapiToken);
+    setApi(apiService);
+  }, [])
 
   const [languages, setLanguages] = useState<Language[]>([]);
   const [voices, setVoices] = useState<Voice[]>([]);
@@ -196,7 +202,7 @@ function App() {
     }
   }, [avatarId, avatars]);
 
-  const [sessionDuration, setSessionDuration] = useState(10);
+  const [sessionDuration, setSessionDuration] = useState(2);
 
   const startStreaming = async () => {
     if (!api) {
@@ -390,13 +396,13 @@ function App() {
     <>
       <div className="left-side">
         <h3>AKool Streaming Avatar Demo</h3>
-        <div>
+        <div style={{display: "none"}}>
           <label>
             Host:
             <input defaultValue={openapiHost} onChange={(e) => setOpenapiHost(e.target.value)} />
           </label>
         </div>
-        <div>
+        <div style={{display: "none"}}>
           <label>
             Token:
             <input
@@ -406,7 +412,7 @@ function App() {
             />
           </label>
         </div>
-        <div>
+        <div style={{display: "none"}}>
           <label>
             Session Duration (minutes):
             <input
@@ -418,7 +424,7 @@ function App() {
             />
           </label>
         </div>
-        <div>
+        <div style={{display: "none"}}>
           <label>
             ModeType:
             <select value={modeType} onChange={(e) => setModeType(parseInt(e.target.value))}>
@@ -427,11 +433,11 @@ function App() {
             </select>
           </label>
         </div>
-        <div>
+        <div style={{display: "none"}}>
           <label>
             Avatar:
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              {!useManualAvatarId ? (
+              {/* {!useManualAvatarId ? (
                 <select value={avatarId} onChange={(e) => setAvatarId(e.target.value)} disabled={!avatars.length}>
                   <option value="">Select an avatar</option>
                   {avatars.map((avatar, index) => (
@@ -454,11 +460,18 @@ function App() {
                 title={useManualAvatarId ? 'Switch to dropdown' : 'Switch to manual input'}
               >
                 <span className="material-icons">{useManualAvatarId ? 'list' : 'edit'}</span>
-              </button>
+              </button> */}
+
+              <input
+                  type="text"
+                  value={avatarId}
+                  onChange={(e) => setAvatarId(e.target.value)}
+                  placeholder="Enter avatar ID"
+                />
             </div>
           </label>
         </div>
-        <div>
+        <div style={{display: "none"}}>
           <label>
             Language:
             <select value={language} onChange={(e) => setLanguage(e.target.value)} disabled={!languages.length}>
@@ -471,7 +484,7 @@ function App() {
             </select>
           </label>
         </div>
-        <div>
+        <div style={{display: "none"}}>
           <label>
             Voice:
             <select value={voiceId} onChange={(e) => setVoiceId(e.target.value)} disabled={!voices.length}>

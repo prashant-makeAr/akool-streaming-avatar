@@ -92,6 +92,8 @@ export class ApiService {
 
   public async getAvatarList(): Promise<Avatar[]> {
     const data = await this.fetchApi("/api/open/v3/avatar/list", "GET");
+    console.log(data.result);
+    console.log(data.result.filter((obj: any) => obj.avatar_id == "dvp_Tristan_cloth2_01_1080P"));
     return data?.result;
   }
 }
